@@ -6,6 +6,7 @@ const MainWrapper = ({ children }) => {
         flexDirection: "column",
         justifyContent: "space-between",
         height: "100vh",
+        width: "100vw",
       }}
     >
       {children}

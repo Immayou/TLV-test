@@ -4,10 +4,10 @@ import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }) {
   return (
-    <Layout>
-      <MainWrapper>
+    <MainWrapper>
+      <Layout>
         <Component {...pageProps} />
-      </MainWrapper>
-    </Layout>
+      </Layout>
+    </MainWrapper>
   );
 }
