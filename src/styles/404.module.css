@@ -1,0 +1,9 @@
+.linkAccent {
+  border-bottom: 1px solid #000000;
+  transition: text-shadow 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.linkAccent:focus,
+.linkAccent:hover {
+  text-shadow: 2px 2px 10px #000000;
+}
