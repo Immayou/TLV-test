@@ -54,7 +54,9 @@ const LoginPage = () => {
           </div>
           <Button
             text="Login"
-            icon={<CiLogin size={22} style={{ marginRight: "5px" }} />}
+            type="submit"
+            btnclass="btn"
+            svgIcon={<CiLogin size={22} style={{ marginRight: "10" }} />}
           />
           <div className={s.bottom_box}>
             <p className={s.bottom_text}>Don't have an account?</p>

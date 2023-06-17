@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import { useState } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
+import Button from "./button";
 import s from "../styles/Home.module.css";
 
 const tableTitles = [
@@ -26,39 +27,66 @@ const MainContent = () => {
 
   return (
     <main style={{ flexGrow: 1, padding: "20px" }}>
-      <button type="button" onClick={handleModalClick}>
-        Create new
-      </button>
-      <div className={s.block_table}>
-        <ul className={s.table}>
-          {tableTitles.map((title, index) => (
-            <li key={index} className={s.table_title}>
-              {title}
-            </li>
-          ))}
-        </ul>
-        <ul className={s.table}>
-          {tableTitles.map((title, index) => {
-            const iconsItem = index === 6;
-            return iconsItem ? (
-              <li key={index} className={s.row}>
-                <FiEdit2 size={22} style={{ marginRight: "15px" }} />
-                <RiDeleteBin5Line size={22} />
-              </li>
-            ) : (
-              <li key={index} className={s.row}>
-                {title}
-              </li>
-            );
-          })}
-        </ul>
+      <div className="container">
+        <Button
+          type="button"
+          handleClick={handleModalClick}
+          text="Create new"
+          btnclass="topBtn"
+        />
+        <div className={s.block_table}>
+          <table>
+            <thead>
+              <tr>
+                {tableTitles.map((title, index) => (
+                  <th key={index} className={s.table_title}>
+                    {title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+
+            <tbody>
+              {tableTitles.map((title, index) => {
+                return (
+                  <tr>
+                    <td key={index} className={s.row}>
+                      {title}
+                    </td>
+                    <td key={index} className={s.row}>
+                      {title}
+                    </td>
+                    <td key={index} className={s.row}>
+                      {title}
+                    </td>
+                    <td key={index} className={s.row}>
+                      {title}
+                    </td>
+                    <td key={index} className={s.row}>
+                      {title}
+                    </td>
+                    <td key={index} className={s.row}>
+                      {title}
+                    </td>
+                    <td className={s.row}>
+                      <Button
+                        type="button"
+                        svgIcon={<FiEdit2 size={22} />}
+                        btnclass="iconButton"
+                      />
+                      <Button
+                        type="button"
+                        svgIcon={<RiDeleteBin5Line size={22} />}
+                        btnclass="iconButton"
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      <ul style={{ display: "flex" }}></ul>
-      <ul>
-        <SimpleItem key={nanoid()} text="123" />
-      </ul>
-
       {isOpenModal && <Modal onModalClose={handleModalClick} />}
     </main>
   );
