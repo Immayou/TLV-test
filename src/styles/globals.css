@@ -97,6 +97,9 @@ a {
 }
 
 .iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px;
   transition: box-shadow 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -125,4 +128,12 @@ a {
 .topBtn:hover,
 .topBtn:focus {
   box-shadow: 8px 8px 8px #888888;
+}
+
+.error_message {
+  display: block;
+  text-align: center;
+  text-transform: none;
+  font-size: 12px;
+  color: coral;
 }
