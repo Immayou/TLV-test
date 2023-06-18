@@ -1,12 +1,14 @@
 import { createPortal } from "react-dom";
 import { useState, useEffect, useRef } from "react";
 import { useFormik } from "formik";
+import { nanoid } from "nanoid";
 import Button from "@/components/button";
 import s from "../styles/Modal.module.css";
 
 const Modal = ({ onModalClose }) => {
   const [mounted, setMounted] = useState(false);
   const ref = useRef();
+  const custom_id = nanoid();
 
   useEffect(() => {
     ref.current = document.querySelector("#modal-root");
@@ -14,9 +16,10 @@ const Modal = ({ onModalClose }) => {
   });
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
+      id: custom_id,
+      topic: "",
+      question_name: "",
+      comment: "",
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -37,7 +40,7 @@ const Modal = ({ onModalClose }) => {
                   id="id"
                   name="id"
                   type="number"
-                  onChange={formik.handleChange}
+                  // onChange={formik.handleChange}
                   value={formik.values.id}
                   className={s.input}
                 />
@@ -63,22 +66,24 @@ const Modal = ({ onModalClose }) => {
                   id="question_name"
                   name="question_name"
                   type="text"
-                  onChange={formik.handleChange}
+                  // onChange={formik.handleChange}
                   value={formik.values.question_name}
                   className={s.input}
                 />
               </div>
               <div className={s.inputBox}>
-                <label htmlFor="question_comment" className={s.label}>
+                <label htmlFor="comment" className={s.label}>
                   Question comment
                 </label>
                 <input
-                  id="question_comment"
-                  name="question_comment"
-                  type="text"
-                  onChange={formik.handleChange}
-                  value={formik.values.question_comment}
+                  id="comment"
                   className={s.input}
+                  type="text"
+                  name="comment"
+                  rows="6"
+                  onChange={formik.handleChange}
+                  placeholder="Enter your comment..."
+                  value={formik.values.comment}
                 />
               </div>
               <div className={s.bottomBox}>

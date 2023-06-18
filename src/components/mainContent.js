@@ -49,25 +49,13 @@ const MainContent = () => {
             <tbody>
               {tableTitles.map((title, index) => {
                 return (
-                  <tr>
-                    <td key={index} className={s.row}>
-                      {title}
-                    </td>
-                    <td key={index} className={s.row}>
-                      {title}
-                    </td>
-                    <td key={index} className={s.row}>
-                      {title}
-                    </td>
-                    <td key={index} className={s.row}>
-                      {title}
-                    </td>
-                    <td key={index} className={s.row}>
-                      {title}
-                    </td>
-                    <td key={index} className={s.row}>
-                      {title}
-                    </td>
+                  <tr key={index}>
+                    <td className={s.row}>{title}</td>
+                    <td className={s.row}>{title}</td>
+                    <td className={s.row}>{title}</td>
+                    <td className={s.row}>{title}</td>
+                    <td className={s.row}>{title}</td>
+                    <td className={s.row}>{title}</td>
                     <td className={s.row}>
                       <Button
                         type="button"
