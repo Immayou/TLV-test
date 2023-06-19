@@ -1,6 +1,6 @@
 import { Formik, Form, Field } from "formik";
-import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { CiLogin } from "react-icons/ci";
 import * as Yup from "yup";
 import { logInProfile } from "@/redux/Profile/profileSlice";
@@ -23,10 +23,17 @@ const schema = Yup.object().shape({
 });
 
 const LoginPage = () => {
-  const [isLogined, setIsLogined] = useState(false);
+  const [isLoginning, setIsLoginning] = useState(false);
+  const { isLoggedIn } = useSelector((state) => state.profile);
   const router = useRouter();
-
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!(router.pathname === "/login" && isLoggedIn)) {
+      return;
+    }
+    router.push("./");
+  }, []);
 
   const initialValues = {
     email: "",
@@ -37,15 +44,14 @@ const LoginPage = () => {
     <main className={s.section_content}>
       <section className="container">
         <h2 className={s.section_title}>Login form</h2>
-        {!isLogined && (
+        {!isLoginning && (
           <Formik
             initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values, { resetForm }) => {
-              alert(JSON.stringify(values, null, 2));
               dispatch(logInProfile(values));
               router.push("./");
-              setIsLogined(!isLogined);
+              setIsLoginning(!isLoginning);
               resetForm();
             }}
           >
@@ -122,7 +128,7 @@ const LoginPage = () => {
         <MoonLoader
           speedMultiplier={0.5}
           color="gray"
-          loading={isLogined}
+          loading={isLoginning}
           cssOverride={override}
           size={150}
           aria-label="Loading Spinner"

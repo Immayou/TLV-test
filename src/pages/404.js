@@ -1,9 +1,15 @@
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import Button from "@/components/button";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 
 const NotFoundPage = () => {
   const router = useRouter();
+  const { isLoggedIn } = useSelector((state) => state.profile);
+
+  const handleBackBtnClick = () => {
+    !isLoggedIn ? router.push("/login") : router.push("/");
+  };
 
   return (
     <main>
@@ -19,7 +25,7 @@ const NotFoundPage = () => {
           <Button
             type="button"
             text="Go back"
-            handleClick={() => router.back()}
+            handleClick={handleBackBtnClick}
             btnclass="iconButton"
             svgIcon={<MdOutlineArrowBackIos />}
           />

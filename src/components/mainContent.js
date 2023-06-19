@@ -1,7 +1,8 @@
-import SimpleItem from "@/components/simpleItem";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import Modal from "@/components/modal";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
 import Button from "./button";
@@ -19,6 +20,17 @@ const tableTitles = [
 
 const MainContent = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const { isLoggedIn } = useSelector((state) => state.profile);
+  const { id, topic, question_name, question_text, difficulty, comment } =
+    useSelector((state) => state.questions);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/login");
+    }
+    return;
+  }, []);
 
   const handleModalClick = (e) => {
     e.preventDefault();

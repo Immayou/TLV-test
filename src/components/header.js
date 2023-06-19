@@ -7,7 +7,7 @@ import { logOutProfile } from "@/redux/Profile/profileSlice";
 import { useEffect } from "react";
 
 const Header = () => {
-  const { email } = useSelector((state) => state.profile);
+  const { email, isLoggedIn } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -17,22 +17,15 @@ const Header = () => {
   //   }
   // }, []);
 
-  const handleBtnExitClick = (e) => {
-    dispatch(logOutProfile);
+  const handleBtnExitClick = () => {
+    dispatch(logOutProfile());
     router.push("/login");
   };
 
   return (
     <header style={{ padding: "20px 0" }}>
       <div className="container">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Logo text="TLV-test" />
+        {isLoggedIn && (
           <div
             style={{
               display: "flex",
@@ -40,21 +33,31 @@ const Header = () => {
               alignItems: "center",
             }}
           >
-            <p
+            <Logo text="TLV-test" />
+            <div
               style={{
-                marginRight: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              Hi, {email}
-            </p>
-            <Button
-              svgIcon={<RxExit size={22} />}
-              type="button"
-              btnclass="iconButton"
-              handleClick={handleBtnExitClick}
-            />
+              <p
+                style={{
+                  marginRight: "10px",
+                }}
+              >
+                Hi, {email}
+              </p>
+              <Button
+                svgIcon={<RxExit size={22} />}
+                type="button"
+                btnclass="iconButton"
+                handleClick={handleBtnExitClick}
+              />
+            </div>
           </div>
-        </div>
+        )}
+        {!isLoggedIn && <Logo text="TLV-test" />}
       </div>
     </header>
   );

@@ -31,6 +31,7 @@ const profileSlice = createSlice({
   reducers: {
     logInProfile: {
       reducer(state, { payload }) {
+        console.log(payload);
         return (state = { ...payload });
       },
       prepare(value) {
