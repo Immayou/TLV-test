@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import Modal from "@/components/modal";
-import { nanoid } from "nanoid";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
+import { deleteQuestion, editQuestion } from "@/redux/Questions/questionsSlice";
 import Button from "./button";
+import Modal from "@/components/modal";
 import s from "../styles/Home.module.css";
 
 const tableTitles = [
@@ -20,10 +20,11 @@ const tableTitles = [
 
 const MainContent = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [questionToEdit, setQuestionToEdit] = useState(null);
   const { isLoggedIn } = useSelector((state) => state.profile);
-  const { id, topic, question_name, question_text, difficulty, comment } =
-    useSelector((state) => state.questions);
+  const allQuestions = useSelector((state) => state.questions);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -32,9 +33,20 @@ const MainContent = () => {
     return;
   }, []);
 
-  const handleModalClick = (e) => {
+  const onModalOpen = (e) => {
     e.preventDefault();
-    setIsOpenModal(!isOpenModal);
+    setIsOpenModal(true);
+  };
+
+  const onModalClose = () => {
+    setIsOpenModal(false);
+    setQuestionToEdit(null);
+  };
+
+  const handleEditBtnClick = (question) => {
+    setQuestionToEdit(question);
+    setIsOpenModal(true);
+    dispatch(deleteQuestion(question.id));
   };
 
   return (
@@ -42,7 +54,7 @@ const MainContent = () => {
       <div className="container">
         <Button
           type="button"
-          handleClick={handleModalClick}
+          handleClick={onModalOpen}
           text="Create new"
           btnclass="topBtn"
         />
@@ -59,25 +71,29 @@ const MainContent = () => {
             </thead>
 
             <tbody>
-              {tableTitles.map((title, index) => {
+              {allQuestions.map((question, index) => {
                 return (
                   <tr key={index}>
-                    <td className={s.row}>{title}</td>
-                    <td className={s.row}>{title}</td>
-                    <td className={s.row}>{title}</td>
-                    <td className={s.row}>{title}</td>
-                    <td className={s.row}>{title}</td>
-                    <td className={s.row}>{title}</td>
+                    <td className={s.row}>{question.id}</td>
+                    <td className={s.row}>{question.topic}</td>
+                    <td className={s.row}>{question.question_name}</td>
+                    <td className={s.row}>{question.difficulty}</td>
+                    <td className={s.row}>75%</td>
+                    <td className={s.row}>123</td>
                     <td className={s.row}>
                       <Button
                         type="button"
                         svgIcon={<FiEdit2 size={22} />}
                         btnclass="iconButton"
+                        handleClick={() => {
+                          handleEditBtnClick(question);
+                        }}
                       />
                       <Button
                         type="button"
                         svgIcon={<RiDeleteBin5Line size={22} />}
                         btnclass="iconButton"
+                        handleClick={() => dispatch(deleteQuestion(id))}
                       />
                     </td>
                   </tr>
@@ -87,15 +103,11 @@ const MainContent = () => {
           </table>
         </div>
       </div>
-      {isOpenModal && <Modal onModalClose={handleModalClick} />}
+      {isOpenModal && (
+        <Modal onModalClose={onModalClose} questionToEdit={questionToEdit} />
+      )}
     </main>
   );
 };
-<div className={s.block_table}>
-  <ul className={s.table}>
-    <li className={s.table_title}>Заголовок 1</li>
-    <li className={s.row}>1 столбец</li>
-  </ul>
-</div>;
 
 export default MainContent;

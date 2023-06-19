@@ -1,7 +1,9 @@
 import { createPortal } from "react-dom";
 import { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { addQuestion } from "@/redux/Questions/questionsSlice";
 import { nanoid } from "nanoid";
 import FormError from "@/components/formError";
 import Button from "@/components/button";
@@ -18,10 +20,12 @@ const schema = Yup.object().shape({
     .max(120, "Too long! Maximum 120 characters"),
 });
 
-const Modal = ({ onModalClose }) => {
+const Modal = ({ onModalClose, questionToEdit }) => {
   const [mounted, setMounted] = useState(false);
   const ref = useRef();
   const custom_id = nanoid();
+  const dispatch = useDispatch();
+  console.log(questionToEdit);
 
   useEffect(() => {
     ref.current = document.querySelector("#modal-root");
@@ -41,11 +45,12 @@ const Modal = ({ onModalClose }) => {
             <h2 className={s.section_title}>Actions form</h2>
             <Formik
               initialValues={initialValues}
-              onSubmit={(values, { resetForm }) => {
-                alert(JSON.stringify({ id: custom_id, ...values }, null, 2));
-                resetForm();
-              }}
               validationSchema={schema}
+              onSubmit={(values, { resetForm }) => {
+                dispatch(addQuestion({ id: custom_id, ...values }));
+                resetForm();
+                onModalClose();
+              }}
             >
               {({
                 values,
@@ -54,6 +59,7 @@ const Modal = ({ onModalClose }) => {
                 handleChange,
                 handleSubmit,
                 isSubmitting,
+                setFieldValue,
                 resetForm,
               }) => {
                 return (
@@ -61,7 +67,9 @@ const Modal = ({ onModalClose }) => {
                     <h3 className={s.form_title}>Edit/Create questions</h3>
                     <div className={s.inputBox}>
                       <p className={s.label}>ID</p>
-                      <p className={s.input}>{custom_id}</p>
+                      <p className={s.input}>
+                        {questionToEdit ? questionToEdit.id : values.id}
+                      </p>
                     </div>
                     <div className={s.inputBox}>
                       <label htmlFor="topic" className={s.label}>
@@ -73,7 +81,9 @@ const Modal = ({ onModalClose }) => {
                         name="topic"
                         type="text"
                         onChange={handleChange}
-                        value={values.topic}
+                        value={
+                          questionToEdit ? questionToEdit.topic : values.topic
+                        }
                         className={s.input}
                         placeholder="Enter topic"
                       />
@@ -91,7 +101,11 @@ const Modal = ({ onModalClose }) => {
                         name="question_name"
                         type="text"
                         onChange={handleChange}
-                        value={values.question_name}
+                        value={
+                          questionToEdit
+                            ? questionToEdit.question_name
+                            : values.question_name
+                        }
                         placeholder="Enter your question name..."
                         className={s.input}
                       />
@@ -112,7 +126,11 @@ const Modal = ({ onModalClose }) => {
                         rows="6"
                         onChange={handleChange}
                         placeholder="Enter your comment..."
-                        value={values.comment}
+                        value={
+                          questionToEdit
+                            ? questionToEdit.comment
+                            : values.comment
+                        }
                       />
                       {errors.comment && touched.comment ? (
                         <FormError name="comment" component="p" />

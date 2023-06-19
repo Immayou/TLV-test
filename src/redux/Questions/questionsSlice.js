@@ -1,36 +1,25 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const questionsInitialState = [
-  //   {
-  //     id: 0,
-  //     topic: "Biology",
-  //     question_name: "2.1",
-  //     question_text: "Learn HTML and CSS",
-  //     difficulty: "70%",
-  //     comment: "",
-  //   },
-  //   {
-  //     id: "",
-  //     topic: "Biology",
-  //     question_name: "2.1",
-  //     question_text: "Learn HTML and CSS",
-  //     difficulty: "70%",
-  //     comment: "",
-  //   },
-  //   {
-  //     id: "",
-  //     topic: "Biology",
-  //     question_name: "2.1",
-  //     question_text: "Learn HTML and CSS",
-  //     difficulty: "70%",
-  //     comment: "",
-  //   },
   {
-    id: "",
-    topic: "",
-    question_name: "",
-    question_text: "",
-    difficulty: "",
+    id: 1,
+    topic: "Biology",
+    question_name: "2.1",
+    difficulty: "70%",
+    comment: "",
+  },
+  {
+    id: 2,
+    topic: "Biology",
+    question_name: "2.1",
+    difficulty: "70%",
+    comment: "",
+  },
+  {
+    id: 3,
+    topic: "Biology",
+    question_name: "2.1",
+    difficulty: "70%",
     comment: "",
   },
 ];
@@ -43,13 +32,13 @@ const questionsSlice = createSlice({
       reducer(state, { payload }) {
         state.push(payload);
       },
-      prepare({ question_text, question_name, topic }) {
+      prepare({ id, question_name, topic, comment }) {
         return {
           payload: {
-            id: nanoid(),
+            id,
             topic,
             question_name,
-            question_text,
+            comment,
             difficulty: "70%",
           },
         };
@@ -63,10 +52,11 @@ const questionsSlice = createSlice({
     },
     editQuestion: {
       reducer(state, { payload }) {
-        const index = state.questions.findIndex(
-          (question) => question.id === payload.id
-        );
-        state.items.splice(index, 1, payload);
+        console.log(payload);
+        // const index = state.questions.findIndex(
+        //   (question) => question.id === payload.id
+        // );
+        // state.items.splice(index, 1, payload);
       },
     },
   },
