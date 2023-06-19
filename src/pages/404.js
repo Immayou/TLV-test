@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
-import { withRouter } from "next/router";
 import Button from "@/components/button";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 
 const NotFoundPage = () => {
   const router = useRouter();
-  console.log(router);
+
   return (
     <main>
       <div className="container">

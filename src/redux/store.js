@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import profileReducer from "./reducers/profile";
+import { profileReducer } from "./Profile/profileSlice";
+import { questionsReducer } from "./Questions/questionsSlice";
 
 export default configureStore({
-  reducer: { profileReducer },
+  reducer: { profile: profileReducer, questions: questionsReducer },
 });
