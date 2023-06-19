@@ -1,7 +1,9 @@
 import { Formik, Form, Field } from "formik";
 import { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { CiLogin } from "react-icons/ci";
 import * as Yup from "yup";
+import { setProfile } from "@/redux/reducers/profile";
 import Button from "@/components/button";
 import FormError from "@/components/formError";
 import Link from "next/link";
@@ -24,6 +26,8 @@ const LoginPage = () => {
   const [isLogined, setIsLogined] = useState(false);
   const router = useRouter();
 
+  const dispatch = useDispatch();
+
   const initialValues = {
     email: "",
     password: "",
@@ -36,13 +40,14 @@ const LoginPage = () => {
         {!isLogined && (
           <Formik
             initialValues={initialValues}
+            validationSchema={schema}
             onSubmit={(values, { resetForm }) => {
               alert(JSON.stringify(values, null, 2));
+              dispatch(setProfile(values));
               router.push("./");
               setIsLogined(!isLogined);
               resetForm();
             }}
-            validationSchema={schema}
           >
             {({
               values,
