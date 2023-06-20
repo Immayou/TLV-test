@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import Button from "@/components/button";
 import { MdOutlineArrowBackIos } from "react-icons/md";
+import Button from "@/components/button";
 
 const NotFoundPage = () => {
   const router = useRouter();

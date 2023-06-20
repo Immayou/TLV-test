@@ -4,18 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import Button from "@/components/button";
 import { logOutProfile } from "@/redux/Profile/profileSlice";
-import { useEffect } from "react";
+import s from "../styles/Header.module.css";
 
 const Header = () => {
   const { email, isLoggedIn } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!email) {
-  //     return;
-  //   }
-  // }, []);
 
   const handleBtnExitClick = () => {
     dispatch(logOutProfile());
@@ -26,28 +20,10 @@ const Header = () => {
     <header style={{ padding: "20px 0" }}>
       <div className="container">
         {isLoggedIn && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+          <div className={s.header_wrapper}>
             <Logo text="TLV-test" />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <p
-                style={{
-                  marginRight: "10px",
-                }}
-              >
-                Hi, {email}
-              </p>
+            <div className={s.content_box}>
+              <p className={s.text_content}>Hi, {email}</p>
               <Button
                 svgIcon={<RxExit size={22} />}
                 type="button"

@@ -1,0 +1,13 @@
+.footer {
+  padding: 20px;
+}
+
+.copyright_icon {
+  margin-right: 5px;
+}
+
+.content_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

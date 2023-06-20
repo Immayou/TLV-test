@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getRandomInt } from "@/aditional_functions/functions";
 
 const questionsInitialState = [
   {
@@ -12,14 +13,14 @@ const questionsInitialState = [
     id: 2,
     topic: "Geometry",
     question_name: "2.1",
-    difficulty: "70%",
+    difficulty: "80%",
     comment: "",
   },
   {
     id: 3,
     topic: "Math",
     question_name: "2.1",
-    difficulty: "70%",
+    difficulty: "65%",
     comment: "",
   },
 ];
@@ -39,7 +40,7 @@ const questionsSlice = createSlice({
             topic,
             question_name,
             comment,
-            difficulty: "70%",
+            difficulty: `${getRandomInt(100) + "%"}`,
           },
         };
       },
@@ -62,7 +63,7 @@ const questionsSlice = createSlice({
             topic,
             question_name,
             comment,
-            difficulty: "70%",
+            difficulty: `${getRandomInt(100) + "%"}`,
           },
         };
       },
