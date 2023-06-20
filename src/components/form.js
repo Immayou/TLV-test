@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Formik, Form, Field } from "formik";
-import { nanoid } from "nanoid";
+import { getRandomInt } from "../aditional_functions/functions";
 import * as Yup from "yup";
 import { addQuestion, editQuestion } from "@/redux/Questions/questionsSlice";
 import FormError from "@/components/formError";
@@ -14,7 +14,7 @@ const schema = Yup.object().shape({
     .max(40, "Too Long! Maximum 40 characters")
     .required("Required!"),
   question_name: Yup.string()
-    .min(3, "Too Short! Minimum 3 characters")
+    .min(2, "Too Short! Minimum 3 characters")
     .max(40, "Too Long! Maximum 40 characters")
     .required("Required!"),
   comment: Yup.string()
@@ -23,7 +23,7 @@ const schema = Yup.object().shape({
 });
 
 const InputForm = ({ onModalClose, questionToEdit }) => {
-  const custom_id = nanoid();
+  const custom_id = getRandomInt(100);
   const dispatch = useDispatch();
   const initialValuesForEdit = {
     topic: questionToEdit.topic,

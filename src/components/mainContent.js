@@ -33,6 +33,13 @@ const MainContent = () => {
     return;
   }, []);
 
+  useEffect(() => {
+    if (allQuestions.length < 4) {
+      return;
+    }
+    return;
+  }, [allQuestions]);
+
   const onModalOpen = (e) => {
     e.preventDefault();
     setIsOpenModal(true);

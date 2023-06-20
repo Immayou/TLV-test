@@ -73,7 +73,3 @@ const questionsSlice = createSlice({
 export const { addQuestion, deleteQuestion, editQuestion } =
   questionsSlice.actions;
 export const questionsReducer = questionsSlice.reducer;
-
-// function getRandomInt(max) {
-//   return Math.floor(Math.random() * max);
-// }
