@@ -33,7 +33,7 @@ const LoginPage = () => {
       return;
     }
     router.push("./");
-  }, []);
+  }, [isLoggedIn, router]);
 
   const initialValues = {
     email: "",

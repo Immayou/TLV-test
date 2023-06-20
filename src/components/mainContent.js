@@ -31,7 +31,7 @@ const MainContent = () => {
       router.push("/login");
     }
     return;
-  }, []);
+  }, [isLoggedIn, router]);
 
   useEffect(() => {
     if (allQuestions.length < 4) {
