@@ -86,7 +86,7 @@ const MainContent = () => {
                     <td className={s.row}>{question.difficulty}</td>
                     <td className={s.row}>75%</td>
                     <td className={s.row}>123</td>
-                    <td className={s.row}>
+                    <td className={`${s.row_icons} ${s.row}`}>
                       <Button
                         type="button"
                         svgIcon={<FiEdit2 size={22} />}

@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
@@ -13,16 +14,20 @@ import {
 import { profileReducer } from "./Profile/profileSlice";
 import { questionsReducer } from "./Questions/questionsSlice";
 
-const authPersistConfig = {
-  key: "profile",
+const persistConfig = {
+  key: "root",
   storage,
 };
 
+const rootReducer = combineReducers({
+  profile: profileReducer,
+  questions: questionsReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: {
-    profile: persistReducer(authPersistConfig, profileReducer),
-    questions: questionsReducer,
-  },
+  reducer: persistedReducer,
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware({
       serializableCheck: {
