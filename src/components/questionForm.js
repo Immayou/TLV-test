@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { addQuestion, editQuestion } from "@/redux/Questions/questionsSlice";
 import FormError from "@/components/formError";
 import Button from "@/components/button";
-import s from "../styles/Form.module.css";
+import s from "../styles/QuestionForm.module.css";
 
 const schema = Yup.object().shape({
   topic: Yup.string()

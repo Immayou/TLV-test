@@ -18,8 +18,8 @@ const override = {
 };
 
 const schema = Yup.object().shape({
-  email: Yup.string().email().required(),
-  password: Yup.string().min(6).max(12).required(),
+  email: Yup.string().email().required("Required!"),
+  password: Yup.string().min(6).max(12).required("Required!"),
 });
 
 const LoginPage = () => {

@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import InputForm from "@/components/form";
+import InputForm from "@/components/questionForm";
 import s from "../styles/Modal.module.css";
 
 const Modal = ({ onModalClose, questionToEdit }) => {
