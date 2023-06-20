@@ -1,3 +1,5 @@
+import { BiCopyright } from "react-icons/bi";
+
 const Footer = () => {
   return (
     <footer style={{ padding: "20px" }}>
@@ -9,7 +11,7 @@ const Footer = () => {
           alignItems: "center",
         }}
       >
-        <span>&#169;</span>
+        <BiCopyright size={16} style={{ marginRight: "5px" }} />
         <p>2023</p>
       </div>
     </footer>
