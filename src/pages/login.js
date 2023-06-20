@@ -22,7 +22,7 @@ const schema = Yup.object().shape({
   password: Yup.string()
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character"
+      "must contain 8 characters, one uppercase, one lowercase, one number and one special case character"
     )
     .required("Required!"),
 });
