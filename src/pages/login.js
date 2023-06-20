@@ -115,7 +115,7 @@ const LoginPage = () => {
                     }
                   />
                   <div className={s.bottom_box}>
-                    <p className={s.bottom_text}>Don't have an account?</p>
+                    <p className={s.bottom_text}>Don&apos;t have an account?</p>
                     <Link href="/registration" className={s.bottom_link}>
                       Register
                     </Link>

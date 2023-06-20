@@ -15,7 +15,7 @@ const NotFoundPage = () => {
     <main>
       <div className="container">
         <h1 style={{ marginBottom: "20px", textAlign: "center" }}>
-          This page doesn't exist
+          This page doesn&apos;t exist
         </h1>
         <div
           style={{
