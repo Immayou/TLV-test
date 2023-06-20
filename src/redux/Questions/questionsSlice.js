@@ -1,23 +1,23 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const questionsInitialState = [
   {
     id: 1,
     topic: "Biology",
-    question_name: "2.1",
+    question_name: "3.1",
     difficulty: "70%",
     comment: "",
   },
   {
     id: 2,
-    topic: "Biology",
+    topic: "Geometry",
     question_name: "2.1",
     difficulty: "70%",
     comment: "",
   },
   {
     id: 3,
-    topic: "Biology",
+    topic: "Math",
     question_name: "2.1",
     difficulty: "70%",
     comment: "",
@@ -52,7 +52,6 @@ const questionsSlice = createSlice({
     },
     editQuestion: {
       reducer(state, { payload }) {
-        console.log(payload);
         const index = state.findIndex((question) => question.id === payload.id);
         state.splice(index, 1, payload);
       },
@@ -74,3 +73,7 @@ const questionsSlice = createSlice({
 export const { addQuestion, deleteQuestion, editQuestion } =
   questionsSlice.actions;
 export const questionsReducer = questionsSlice.reducer;
+
+// function getRandomInt(max) {
+//   return Math.floor(Math.random() * max);
+// }
