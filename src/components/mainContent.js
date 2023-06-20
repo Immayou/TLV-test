@@ -33,13 +33,6 @@ const MainContent = () => {
     return;
   }, [isLoggedIn, router]);
 
-  useEffect(() => {
-    if (allQuestions.length < 4) {
-      return;
-    }
-    return;
-  }, [allQuestions]);
-
   const onModalOpen = (e) => {
     e.preventDefault();
     setIsOpenModal(true);

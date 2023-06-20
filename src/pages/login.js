@@ -19,7 +19,12 @@ const override = {
 
 const schema = Yup.object().shape({
   email: Yup.string().email().required("Required!"),
-  password: Yup.string().min(6).max(12).required("Required!"),
+  password: Yup.string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character"
+    )
+    .required("Required!"),
 });
 
 const LoginPage = () => {
