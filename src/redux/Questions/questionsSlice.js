@@ -53,10 +53,19 @@ const questionsSlice = createSlice({
     editQuestion: {
       reducer(state, { payload }) {
         console.log(payload);
-        // const index = state.questions.findIndex(
-        //   (question) => question.id === payload.id
-        // );
-        // state.items.splice(index, 1, payload);
+        const index = state.findIndex((question) => question.id === payload.id);
+        state.splice(index, 1, payload);
+      },
+      prepare({ id, question_name, topic, comment }) {
+        return {
+          payload: {
+            id,
+            topic,
+            question_name,
+            comment,
+            difficulty: "70%",
+          },
+        };
       },
     },
   },

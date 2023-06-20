@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { addQuestion } from "@/redux/Questions/questionsSlice";
+import { addQuestion, editQuestion } from "@/redux/Questions/questionsSlice";
 import { nanoid } from "nanoid";
 import FormError from "@/components/formError";
 import Button from "@/components/button";
@@ -32,6 +32,12 @@ const Modal = ({ onModalClose, questionToEdit }) => {
     setMounted(true);
   }, []);
 
+  const initialValuesForEdit = {
+    topic: questionToEdit.topic,
+    question_name: questionToEdit.question_name,
+    comment: questionToEdit.comment,
+  };
+
   const initialValues = {
     topic: "",
     question_name: "",
@@ -44,10 +50,18 @@ const Modal = ({ onModalClose, questionToEdit }) => {
           <section className="container">
             <h2 className={s.section_title}>Actions form</h2>
             <Formik
-              initialValues={initialValues}
+              initialValues={
+                questionToEdit ? initialValuesForEdit : initialValues
+              }
               validationSchema={schema}
               onSubmit={(values, { resetForm }) => {
-                dispatch(addQuestion({ id: custom_id, ...values }));
+                {
+                  questionToEdit
+                    ? dispatch(
+                        editQuestion({ ...values, id: questionToEdit.id })
+                      )
+                    : dispatch(addQuestion({ id: custom_id, ...values }));
+                }
                 resetForm();
                 onModalClose();
               }}
@@ -68,7 +82,7 @@ const Modal = ({ onModalClose, questionToEdit }) => {
                     <div className={s.inputBox}>
                       <p className={s.label}>ID</p>
                       <p className={s.input}>
-                        {questionToEdit ? questionToEdit.id : values.id}
+                        {questionToEdit ? questionToEdit.id : custom_id}
                       </p>
                     </div>
                     <div className={s.inputBox}>
@@ -81,9 +95,7 @@ const Modal = ({ onModalClose, questionToEdit }) => {
                         name="topic"
                         type="text"
                         onChange={handleChange}
-                        value={
-                          questionToEdit ? questionToEdit.topic : values.topic
-                        }
+                        value={values.topic}
                         className={s.input}
                         placeholder="Enter topic"
                       />
@@ -101,11 +113,7 @@ const Modal = ({ onModalClose, questionToEdit }) => {
                         name="question_name"
                         type="text"
                         onChange={handleChange}
-                        value={
-                          questionToEdit
-                            ? questionToEdit.question_name
-                            : values.question_name
-                        }
+                        value={values.question_name}
                         placeholder="Enter your question name..."
                         className={s.input}
                       />
@@ -126,11 +134,7 @@ const Modal = ({ onModalClose, questionToEdit }) => {
                         rows="6"
                         onChange={handleChange}
                         placeholder="Enter your comment..."
-                        value={
-                          questionToEdit
-                            ? questionToEdit.comment
-                            : values.comment
-                        }
+                        value={values.comment}
                       />
                       {errors.comment && touched.comment ? (
                         <FormError name="comment" component="p" />
@@ -141,7 +145,7 @@ const Modal = ({ onModalClose, questionToEdit }) => {
                       <Button
                         type="submit"
                         isAble={isSubmitting}
-                        text="Submit"
+                        text={questionToEdit ? "Edit" : "Submit"}
                         btnclass="btn"
                       />
                       <Button

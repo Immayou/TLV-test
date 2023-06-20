@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
-import { deleteQuestion, editQuestion } from "@/redux/Questions/questionsSlice";
+import { deleteQuestion } from "@/redux/Questions/questionsSlice";
 import Button from "./button";
 import Modal from "@/components/modal";
 import s from "../styles/Home.module.css";
@@ -20,7 +20,7 @@ const tableTitles = [
 
 const MainContent = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [questionToEdit, setQuestionToEdit] = useState(null);
+  const [questionToEdit, setQuestionToEdit] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.profile);
   const allQuestions = useSelector((state) => state.questions);
   const router = useRouter();
@@ -40,13 +40,12 @@ const MainContent = () => {
 
   const onModalClose = () => {
     setIsOpenModal(false);
-    setQuestionToEdit(null);
+    setQuestionToEdit(false);
   };
 
   const handleEditBtnClick = (question) => {
     setQuestionToEdit(question);
     setIsOpenModal(true);
-    dispatch(deleteQuestion(question.id));
   };
 
   return (
@@ -93,7 +92,9 @@ const MainContent = () => {
                         type="button"
                         svgIcon={<RiDeleteBin5Line size={22} />}
                         btnclass="iconButton"
-                        handleClick={() => dispatch(deleteQuestion(id))}
+                        handleClick={() =>
+                          dispatch(deleteQuestion(question.id))
+                        }
                       />
                     </td>
                   </tr>
